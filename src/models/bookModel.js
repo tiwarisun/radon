@@ -1,3 +1,5 @@
+/*
+
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema( {
@@ -14,7 +16,7 @@ const bookSchema = new mongoose.Schema( {
 }, { timestamps: true });
 
 
-module.exports = mongoose.model('Book', bookSchema) //users
+module.exports = mongoose.model('Book', bookSchema)     //users
 
 //Validation:
 //require:true
@@ -29,3 +31,55 @@ module.exports = mongoose.model('Book', bookSchema) //users
 // Object
 // ObjectId
 // Buffer - not cover
+*/
+
+
+
+const mongoose = require('mongoose');
+
+const bookSchema = new mongoose.Schema( {
+    bookName: {
+type : String,
+require : true
+    },
+
+    price : {
+indianPrice : String,
+europeanPrice : String        
+    },
+
+    year : {
+type : Number,
+default : 2021
+},
+
+tags : [String],
+authorName : String,
+totalPage : Number,
+stockAvailable : Boolean
+},
+
+{timestamps : true})
+
+module.exports = mongoose.model('Book', bookSchema)  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
