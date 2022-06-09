@@ -1,3 +1,5 @@
+
+/*
 const UserModel= require("../models/userModel")
 
 const createUser= async function (req, res) {
@@ -13,3 +15,4 @@ const getUsersData= async function (req, res) {
 
 module.exports.createUser= createUser
 module.exports.getUsersData= getUsersData
+*/
