@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/userModel");
+const userModel = require("../models/userModule");
+const loginModel = require("../models/loginModule")
 
 const createUser = async function (abcd, xyz) {
   //You can name the req, res objects anything.
@@ -67,6 +68,16 @@ const getUserData = async function (req, res) {
 };
 
 const updateUser = async function (req, res) {
+    let token = req.headers["x-Auth-token"];
+    if (!token) token = req.headers["x-auth-token"];
+  
+ if (!token) return res.send({ status: false, msg: "token must be present" });
+ console.log(token);
+
+
+   let decodedToken = jwt.verify(token, "functionup-radon");
+    if (!decodedToken)
+return res.send({ status: false, msg: "token is invalid" });
 // Do the same steps here:
 // Check if the token is present
 // Check if the token present is a valid token
@@ -84,7 +95,38 @@ const updateUser = async function (req, res) {
   res.send({ status: updatedUser, data: updatedUser });
 };
 
+const deleteuser = async function(req, res){
+
+    let token = req.headers["x-Auth-token"];
+    if (!token) token = req.headers["x-auth-token"];
+  
+ if (!token) return res.send({ status: false, msg: "token must be present" });
+ console.log(token);
+
+ let decodedToken = jwt.verify(token, "functionup-radon");
+    if (!decodedToken)
+return res.send({ status: false, msg: "token is invalid" });
+
+let userData = req.body
+let detleteduser = await userModel.findByIdAndUpdate( {isDeleted : true}, userData)
+
+res.send({msg : "done"})
+
+}
+
+
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteuser = deleteuser;
+
+
+
+/*
+
+
+const isValidObjectId = function(objectId) {
+    return mongoose.Types.ObjectId.isValid(objectId)
+}
+ */
